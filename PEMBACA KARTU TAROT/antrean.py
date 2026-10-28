@@ -10,7 +10,6 @@ URUTAN_TAMPILAN = {
 # lambda: label singkat sebuah sesi untuk pilihan di form
 label_sesi = lambda s: f"#{s['no']} {s['nama']}"
  
- 
 def buat_antrean():
     """Antrean kosong (deque)."""
     return deque()

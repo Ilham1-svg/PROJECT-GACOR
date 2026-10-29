@@ -5,14 +5,11 @@ import antrean, dek, gambar, riwayat
  
 st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
  
- 
-# ---------- STATE ----------
-def siapkan_state():
-    """Menyiapkan wadah data sekali saja (st.session_state bertahan antar klik)."""
+def state():
     if "antrean" not in st.session_state:
-        st.session_state.antrean = antrean.buat_antrean()   # queue (deque)
-        st.session_state.dek = dek.siapkan_dek()            # stack (list)
-        st.session_state.riwayat = []                       # stack (list)
+        st.session_state.antrean = antrean.buat_antrean()  
+        st.session_state.dek = dek.siapkan_dek()            
+        st.session_state.riwayat = []                       
         st.session_state.nomor = 0
         st.session_state.pesan = None
         st.session_state.hasil = None
@@ -30,7 +27,6 @@ def tampilkan_pesan():
         st.session_state.pesan = None
  
  
-# ---------- AKSI (dipanggil tombol lewat on_click) ----------
 def proses_daftar():
     nomor = st.session_state.nomor + 1
     ok, pesan = antrean.daftar_ramalan(
@@ -68,8 +64,8 @@ def proses_layani():
     if len(st.session_state.dek) < len(dek.posisi):
         st.session_state.dek = dek.siapkan_dek()
         tambahan = " Kartu hampir habis, jadi dek dikocok ulang."
-    sesi = antrean.layani_terdepan(st.session_state.antrean)            # FIFO
-    kartu = dek.tarik_kartu(st.session_state.dek, len(dek.posisi))      # LIFO
+    sesi = antrean.layani_terdepan(st.session_state.antrean)         
+    kartu = dek.tarik_kartu(st.session_state.dek, len(dek.posisi))      
     riwayat.simpan_hasil(st.session_state.riwayat, sesi, kartu)
     st.session_state.hasil = {"sesi": sesi, "kartu": kartu}
     kirim_pesan("sukses", f"Ramalan untuk {sesi['nama']} selesai." + tambahan)
@@ -80,7 +76,6 @@ def proses_kocok():
     kirim_pesan("sukses", "Dek dikocok ulang. Semua kartu kembali ke tumpukan.")
  
  
-# ---------- TAB ----------
 def tab_daftar():
     st.subheader("Daftar ramalan")
     with st.form("form_daftar"):
@@ -157,9 +152,9 @@ def tab_riwayat():
             st.text(riwayat.format_ramalan(catatan))
  
  
-# ---------- MAIN ----------
+
 def main():
-    siapkan_state()
+    state()
     st.title("Dukun Digital Nusantara")
     st.caption("Sistem Manajemen Antrean dan Pembacaan Kartu Tarot Berbasis Web. "
                "Ramalan ini hanya untuk hiburan.")

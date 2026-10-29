@@ -3,13 +3,13 @@ import streamlit as st
  
 import data, dek, riwayat
  
-st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
+st.set_page_config(page_title="Dukun Digital", page_icon="🔮")
  
-# ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
+
 if "antrean" not in st.session_state:
-    st.session_state.antrean = data.buat_antrean()   # queue (deque)
-    st.session_state.dek = dek.siapkan_dek()         # stack (list)
-    st.session_state.riwayat = []                    # stack (list)
+    st.session_state.antrean = data.buat_antrean()   
+    st.session_state.dek = dek.siapkan_dek()         
+    st.session_state.riwayat = []                    
     st.session_state.hasil = None
     st.session_state.pesan = None
  
@@ -17,7 +17,7 @@ antrean = st.session_state.antrean
 tumpukan = st.session_state.dek
 catatan = st.session_state.riwayat
  
-# ---------- JUDUL DAN PESAN ----------
+
 st.title("Dukun Digital Nusantara")
 st.caption("Sistem Manajemen Antrean dan Pembacaan Kartu Tarot Berbasis Web. "
            "Ramalan ini hanya untuk hiburan.")

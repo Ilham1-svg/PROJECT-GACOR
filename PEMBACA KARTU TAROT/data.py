@@ -12,7 +12,16 @@ PERTANYAAN = (
     "Apa yang sebaiknya berhenti kupikirkan?",
     "Apakah aku sedang berada di jalur yang tepat?",
 )
- 
+# Urutannya HARUS sama dengan PERTANYAAN di atas
+topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
+assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
+
+def topik_dari(pertanyaan):
+    """Kode topik untuk sebuah pertanyaan. 'umum' jika tidak dikenal."""
+    if pertanyaan in PERTANYAAN:
+        return topik[PERTANYAAN.index(pertanyaan)]
+    return "umum"
+
 # lambda: cara menampilkan daftar sesi
 URUTAN_TAMPILAN = {
     "Urutan antrean": lambda sesi: list(sesi),
@@ -21,7 +30,8 @@ URUTAN_TAMPILAN = {
 # lambda: label singkat satu sesi untuk pilihan di form
 label_sesi = lambda s: f"#{s['no']} {s['nama']}"
  
- 
+
+
 def buat_antrean():
     """Antrean kosong (deque)."""
     return deque()

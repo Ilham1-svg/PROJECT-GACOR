@@ -110,6 +110,7 @@ with tab3:
  
     hasil = st.session_state.hasil
     if hasil:
+        topik = data.topik_dari(hasil["sesi"]["pertanyaan"])   # sebelumnya data.PERTANYAAN[...])
         st.divider()
         st.write(f"Hasil untuk {hasil['sesi']['nama']}")
         st.caption(f"Pertanyaan: {hasil['sesi']['pertanyaan']}")
@@ -122,7 +123,7 @@ with tab3:
                 else:
                     st.caption(f"Gambar belum ditemukan. Cari file {dek.nama_file(kartu['nama'])}.jpg di folder gambar/")
                 st.markdown(f"### {kartu['nama']}")
-                st.write(kartu["arti"])
+                st.write(dek.arti_kartu(kartu, topik))
  
 # ==================== TAB 4: RIWAYAT RAMALAN (Stack) ====================
 with tab4:

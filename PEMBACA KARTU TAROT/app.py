@@ -1,175 +1,136 @@
 import pandas as pd
 import streamlit as st
  
-import antrean, dek, gambar, riwayat
+import data, dek, riwayat
  
 st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
  
-def state():
-    if "antrean" not in st.session_state:
-        st.session_state.antrean = antrean.buat_antrean()  
-        st.session_state.dek = dek.siapkan_dek()            
-        st.session_state.riwayat = []                       
-        st.session_state.nomor = 0
-        st.session_state.pesan = None
-        st.session_state.hasil = None
+# ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
+if "antrean" not in st.session_state:
+    st.session_state.antrean = data.buat_antrean()   # queue (deque)
+    st.session_state.dek = dek.siapkan_dek()         # stack (list)
+    st.session_state.riwayat = []                    # stack (list)
+    st.session_state.hasil = None
+    st.session_state.pesan = None
  
+antrean = st.session_state.antrean
+tumpukan = st.session_state.dek
+catatan = st.session_state.riwayat
  
-def kirim_pesan(jenis, teks):
-    st.session_state.pesan = (jenis, teks)
+# ---------- JUDUL DAN PESAN ----------
+st.title("Dukun Digital Nusantara")
+st.caption("Sistem Manajemen Antrean dan Pembacaan Kartu Tarot Berbasis Web. "
+           "Ramalan ini hanya untuk hiburan.")
  
+if st.session_state.pesan:
+    berhasil, teks = st.session_state.pesan
+    st.session_state.pesan = None
+    (st.success if berhasil else st.error)(teks)
  
-def tampilkan_pesan():
-    if st.session_state.pesan:
-        jenis, teks = st.session_state.pesan
-        tampil = {"sukses": st.success, "gagal": st.error, "info": st.info}
-        tampil[jenis](teks)
-        st.session_state.pesan = None
+tab1, tab2, tab3, tab4 = st.tabs(["Daftar ramalan", "Antrean", "Ruang ramal", "Riwayat ramalan"])
  
- 
-def proses_daftar():
-    nomor = st.session_state.nomor + 1
-    ok, pesan = antrean.daftar_ramalan(
-        st.session_state.antrean, nomor,
-        st.session_state.in_nama, st.session_state.in_tanya,
-    )
-    if ok:
-        st.session_state.nomor = nomor
-        st.session_state.in_nama = ""
-        st.session_state.in_tanya = ""
-    kirim_pesan("sukses" if ok else "gagal", pesan)
- 
- 
-def proses_ubah(nomor):
-    baru = st.session_state[f"tanya_baru_{nomor}"]
-    ok, pesan = antrean.ubah_sesi(st.session_state.antrean, nomor, baru)
-    kirim_pesan("sukses" if ok else "gagal", pesan)
- 
- 
-def proses_batal(nomor):
-    if not st.session_state.get("yakin_batal", False):
-        kirim_pesan("gagal", "Centang konfirmasi dulu sebelum membatalkan sesi.")
-        return
-    ok, pesan = antrean.batalkan_sesi(st.session_state.antrean, nomor)
-    if ok:
-        st.session_state.yakin_batal = False
-    kirim_pesan("sukses" if ok else "gagal", pesan)
- 
- 
-def proses_layani():
-    if not st.session_state.antrean:
-        kirim_pesan("info", "Antrean kosong. Daftarkan peminta ramalan dulu.")
-        return
-    tambahan = ""
-    if len(st.session_state.dek) < len(dek.posisi):
-        st.session_state.dek = dek.siapkan_dek()
-        tambahan = " Kartu hampir habis, jadi dek dikocok ulang."
-    sesi = antrean.layani_terdepan(st.session_state.antrean)         
-    kartu = dek.tarik_kartu(st.session_state.dek, len(dek.posisi))      
-    riwayat.simpan_hasil(st.session_state.riwayat, sesi, kartu)
-    st.session_state.hasil = {"sesi": sesi, "kartu": kartu}
-    kirim_pesan("sukses", f"Ramalan untuk {sesi['nama']} selesai." + tambahan)
- 
- 
-def proses_kocok():
-    st.session_state.dek = dek.siapkan_dek()
-    kirim_pesan("sukses", "Dek dikocok ulang. Semua kartu kembali ke tumpukan.")
- 
- 
-def tab_daftar():
+# ==================== TAB 1: DAFTAR RAMALAN (Create) ====================
+with tab1:
     st.subheader("Daftar ramalan")
-    with st.form("form_daftar"):
-        st.text_input("Nama", key="in_nama", max_chars=50)
-        st.text_area("Pertanyaan untuk kartu", key="in_tanya", height=100, max_chars=300)
-        st.form_submit_button("Masuk antrean", on_click=proses_daftar)
+    with st.form("form_daftar", clear_on_submit=True):
+        nama = st.text_input("Nama")
+        pertanyaan = st.selectbox("Pertanyaan untuk kartu", data.PERTANYAAN)
+        kirim = st.form_submit_button("Masuk antrean")
+    if kirim:
+        st.session_state.pesan = data.tambah_sesi(antrean, catatan, nama, pertanyaan)
+        st.rerun()
  
- 
-def tab_antrean():
+# ==================== TAB 2: ANTREAN (Read, Update, Delete) ====================
+with tab2:
     st.subheader("Antrean")
-    data = st.session_state.antrean
-    if not data:
+    if not antrean:
         st.info("Antrean masih kosong. Daftarkan peminta ramalan di tab Daftar ramalan.")
-        return
+    else:
+        # Read
+        urutan = st.radio("Urutkan", list(data.URUTAN_TAMPILAN), horizontal=True)
+        tabel = pd.DataFrame(data.lihat_sesi(antrean, urutan))
+        tabel.columns = ["No", "Nama", "Pertanyaan"]
+        st.dataframe(tabel, hide_index=True)
  
-    urutan = st.radio("Urutkan", list(antrean.URUTAN_TAMPILAN), horizontal=True)
-    tabel = pd.DataFrame(antrean.lihat_antrean(data, urutan))
-    tabel.columns = ["No", "Nama", "Pertanyaan", "Status"]
-    st.dataframe(tabel, hide_index=True)
+        daftar_no = [sesi["no"] for sesi in antrean]
+        nama_sesi = lambda n: data.label_sesi(data.cari_sesi(antrean, n))
  
-    daftar_no = [sesi["no"] for sesi in data]
-    nama_sesi = lambda n: antrean.label_sesi(antrean.cari_sesi(data, n))
+        # Update
+        st.markdown("### Ubah pertanyaan")
+        with st.form("form_ubah", clear_on_submit=True):
+            pilih_ubah = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_ubah")
+            pertanyaan_baru = st.selectbox("Pertanyaan baru", data.PERTANYAAN, key="tanya_baru")
+            simpan = st.form_submit_button("Simpan perubahan")
+        if simpan:
+            st.session_state.pesan = data.ubah_sesi(antrean, pilih_ubah, pertanyaan_baru)
+            st.rerun()
  
-    st.markdown("### Ubah pertanyaan")
-    pilih = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_ubah")
-    st.text_area("Pertanyaan baru", value=antrean.cari_sesi(data, pilih)["pertanyaan"],
-                 key=f"tanya_baru_{pilih}", max_chars=300)
-    st.button("Simpan perubahan", on_click=proses_ubah, args=(pilih,))
+        # Delete
+        st.markdown("### Batalkan sesi")
+        with st.form("form_batal", clear_on_submit=True):
+            pilih_batal = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_batal")
+            yakin = st.checkbox("Ya, batalkan sesi ini")
+            batal = st.form_submit_button("Batalkan sesi")
+        if batal:
+            if yakin:
+                st.session_state.pesan = data.batalkan_sesi(antrean, pilih_batal)
+            else:
+                st.session_state.pesan = (False, "Centang konfirmasi dulu sebelum membatalkan sesi.")
+            st.rerun()
  
-    st.markdown("### Batalkan sesi")
-    pilih_batal = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_batal")
-    st.checkbox("Ya, batalkan sesi ini", key="yakin_batal")
-    st.button("Batalkan sesi", on_click=proses_batal, args=(pilih_batal,))
- 
- 
-def tab_ruang_ramal():
+# ==================== TAB 3: RUANG RAMAL (Queue + Stack) ====================
+with tab3:
     st.subheader("Ruang ramal")
     kiri, kanan = st.columns(2)
-    kiri.metric("Menunggu di antrean", len(st.session_state.antrean))
-    kanan.metric("Kartu di dek", len(st.session_state.dek))
+    kiri.metric("Menunggu di antrean", len(antrean))
+    kanan.metric("Kartu di dek", len(tumpukan))
  
-    if st.session_state.antrean:
-        depan = st.session_state.antrean[0]
-        st.text(f"Giliran berikutnya: {depan['nama']} (#{depan['no']})")
+    if antrean:
+        st.write(f"Giliran berikutnya: {antrean[0]['nama']} (#{antrean[0]['no']})")
     else:
         st.write("Belum ada yang mengantre.")
  
-    st.button("Layani peminta terdepan", on_click=proses_layani)
-    st.button("Kocok ulang dek", on_click=proses_kocok)
+    if st.button("Layani peminta terdepan"):
+        if not antrean:
+            st.session_state.pesan = (False, "Antrean kosong. Daftarkan peminta ramalan dulu.")
+        else:
+            acak_ulang = len(tumpukan) < len(dek.POSISI)
+            sesi = data.layani_sesi(antrean)                 # FIFO: yang paling depan
+            kartu = dek.tarik_kartu(tumpukan)                # LIFO: dari puncak dek
+            riwayat.simpan_hasil(catatan, sesi, kartu)
+            st.session_state.hasil = {"sesi": sesi, "kartu": kartu}
+            st.session_state.pesan = (True, f"Ramalan untuk {sesi['nama']} selesai."
+                                      + (" Kartu hampir habis, jadi dek dikocok ulang." if acak_ulang else ""))
+        st.rerun()
+ 
+    if st.button("Kocok ulang dek"):
+        tumpukan[:] = dek.siapkan_dek()
+        st.session_state.pesan = (True, "Dek dikocok ulang. Semua kartu kembali ke tumpukan.")
+        st.rerun()
  
     hasil = st.session_state.hasil
     if hasil:
         st.divider()
-        st.text(f"Hasil untuk {hasil['sesi']['nama']}")
-        st.text(f"Pertanyaan: {hasil['sesi']['pertanyaan']}")
+        st.write(f"Hasil untuk {hasil['sesi']['nama']}")
+        st.caption(f"Pertanyaan: {hasil['sesi']['pertanyaan']}")
         for kolom, (posisi, kartu) in zip(st.columns(len(hasil["kartu"])), hasil["kartu"]):
             with kolom:
                 st.markdown(f"**{posisi}**")
-                file_gambar = gambar.path_gambar(kartu)
+                file_gambar = dek.path_gambar(kartu)
                 if file_gambar:
                     st.image(file_gambar, width=200)
+                else:
+                    st.caption(f"Gambar belum ditemukan. Cari file {dek.nama_file(kartu['nama'])}.jpg di folder gambar/")
                 st.markdown(f"### {kartu['nama']}")
                 st.write(kartu["arti"])
  
- 
-def tab_riwayat():
+# ==================== TAB 4: RIWAYAT RAMALAN (Stack) ====================
+with tab4:
     st.subheader("Riwayat ramalan")
-    data = riwayat.lihat_riwayat(st.session_state.riwayat)
-    if not data:
+    daftar_riwayat = riwayat.lihat_riwayat(catatan)
+    if not daftar_riwayat:
         st.info("Belum ada ramalan. Layani peminta pertama di tab Ruang ramal.")
-        return
-    for catatan in data:
-        with st.expander(f"#{catatan['no']} {catatan['nama']}"):
-            st.text(riwayat.format_ramalan(catatan))
- 
- 
-
-def main():
-    state()
-    st.title("Dukun Digital Nusantara")
-    st.caption("Sistem Manajemen Antrean dan Pembacaan Kartu Tarot Berbasis Web. "
-               "Ramalan ini hanya untuk hiburan.")
-    tampilkan_pesan()
- 
-    t1, t2, t3, t4 = st.tabs(["Daftar ramalan", "Antrean", "Ruang ramal", "Riwayat ramalan"])
-    with t1:
-        tab_daftar()
-    with t2:
-        tab_antrean()
-    with t3:
-        tab_ruang_ramal()
-    with t4:
-        tab_riwayat()
- 
- 
-main()
+    for c in daftar_riwayat:
+        with st.expander(f"#{c['no']} {c['nama']}"):
+            st.write(riwayat.format_ramalan(c))
  

@@ -1,4 +1,3 @@
-# lambda: merangkum satu catatan menjadi satu kalimat
 format_ramalan = lambda c: (
     f"#{c['no']} {c['nama']} bertanya \"{c['pertanyaan']}\" -> "
     + ", ".join(f"{posisi}: {kartu['nama']}" for posisi, kartu in c["kartu"])
@@ -18,3 +17,4 @@ def simpan_hasil(riwayat, sesi, kartu_terpilih):
 def lihat_riwayat(riwayat):
     """Daftar riwayat dari yang TERBARU (puncak) ke yang terlama."""
     return list(reversed(riwayat))
+ 

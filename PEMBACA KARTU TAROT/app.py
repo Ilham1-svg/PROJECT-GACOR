@@ -62,7 +62,7 @@ with tab2:
         st.dataframe(
             tabel,
             hide_index=True,
-            width="content",    # tabel tidak dilebarkan memenuhi halaman
+            width="content",
             column_config={
                 "No": st.column_config.TextColumn("No", width=50),
                 "Nama": st.column_config.TextColumn("Nama", width=250),

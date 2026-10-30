@@ -4,7 +4,15 @@ import streamlit as st
 import data, dek, riwayat
  
 st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
- 
+# -------- BARU: kunci scrollbar supaya halaman tidak bergoyang --------
+st.markdown(
+    """
+    <style>
+    [data-testid="stMain"] { overflow-y: scroll; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 # ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
 if "antrean" not in st.session_state:
     st.session_state.antrean = data.buat_antrean()   # queue (deque)
@@ -50,7 +58,17 @@ with tab2:
         urutan = st.radio("Urutkan", list(data.URUTAN_TAMPILAN), horizontal=True)
         tabel = pd.DataFrame(data.lihat_sesi(antrean, urutan))
         tabel.columns = ["No", "Nama", "Pertanyaan"]
-        st.dataframe(tabel, hide_index=True)
+        tabel["No"] = tabel["No"].astype(str)
+        st.dataframe(
+            tabel,
+            hide_index=True,
+            width="content",    # tabel tidak dilebarkan memenuhi halaman
+            column_config={
+                "No": st.column_config.TextColumn("No", width=50),
+                "Nama": st.column_config.TextColumn("Nama", width=250),
+                "Pertanyaan": st.column_config.TextColumn("Pertanyaan", width=400),
+            },
+        )
  
         daftar_no = [sesi["no"] for sesi in antrean]
         nama_sesi = lambda n: data.label_sesi(data.cari_sesi(antrean, n))
@@ -110,7 +128,7 @@ with tab3:
  
     hasil = st.session_state.hasil
     if hasil:
-        topik = data.topik_dari(hasil["sesi"]["pertanyaan"])   # sebelumnya data.PERTANYAAN[...])
+        topik = data.topik[data.PERTANYAAN.index(hasil["sesi"]["pertanyaan"])]
         st.divider()
         st.write(f"Hasil untuk {hasil['sesi']['nama']}")
         st.caption(f"Pertanyaan: {hasil['sesi']['pertanyaan']}")

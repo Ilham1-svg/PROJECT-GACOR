@@ -1,7 +1,5 @@
 from collections import deque
  
-# Pilihan pertanyaan (tuple = data tetap). Dipilih lewat selectbox, bukan diketik,
-# supaya hasil 3 kartu lebih mudah dikaitkan dengan topiknya.
 PERTANYAAN = (
     "Bagaimana peruntungan percintaanku?",
     "Bagaimana perkembangan kuliah dan tugas-tugasku?",
@@ -15,6 +13,15 @@ PERTANYAAN = (
 # Urutannya HARUS sama dengan PERTANYAAN di atas
 topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
 assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
+<<<<<<< HEAD
+=======
+
+def topik_dari(pertanyaan):
+    if pertanyaan in PERTANYAAN:
+        return topik[PERTANYAAN.index(pertanyaan)]
+    return "umum"
+
+>>>>>>> f40e346bee4ffa1db2afc098e663bccda21dc73e
 # lambda: cara menampilkan daftar sesi
 URUTAN_TAMPILAN = {
     "Urutan antrean": lambda sesi: list(sesi),
@@ -24,20 +31,16 @@ URUTAN_TAMPILAN = {
 label_sesi = lambda s: f"#{s['no']} {s['nama']}"
  
 
-
 def buat_antrean():
-    """Antrean kosong (deque)."""
     return deque()
  
  
 def nomor_berikutnya(antrean, riwayat):
-    """Nomor sesi baru = nomor terbesar yang sudah ada + 1."""
     semua = [s["no"] for s in antrean] + [c["no"] for c in riwayat]
     return max(semua, default=0) + 1
  
- 
+
 def validasi_input(nama, pertanyaan):
-    """Mengecek isian. Mengembalikan (valid, pesan)."""
     if not nama.strip():
         return False, "Nama belum diisi. Tulis nama peminta ramalan."
     if pertanyaan not in PERTANYAAN:
@@ -45,9 +48,8 @@ def validasi_input(nama, pertanyaan):
     return True, ""
  
  
-# ---------- CREATE ----------
+#CREATE 
 def tambah_sesi(antrean, riwayat, nama, pertanyaan):
-    """Menambah sesi ke BELAKANG antrean."""
     valid, pesan = validasi_input(nama, pertanyaan)
     if not valid:
         return False, pesan
@@ -60,23 +62,20 @@ def tambah_sesi(antrean, riwayat, nama, pertanyaan):
     return True, f"{sesi['nama']} masuk antrean dengan nomor #{sesi['no']}."
  
  
-# ---------- READ ----------
+#READ
 def lihat_sesi(antrean, urutan="Urutan antrean"):
-    """Daftar sesi untuk ditampilkan. Antrean asli tidak berubah."""
     return URUTAN_TAMPILAN[urutan](antrean)
  
  
 def cari_sesi(antrean, nomor):
-    """Mencari sesi berdasarkan nomor. None jika tidak ada."""
     for sesi in antrean:
         if sesi["no"] == nomor:
             return sesi
     return None
  
  
-# ---------- UPDATE ----------
+#UPDATE
 def ubah_sesi(antrean, nomor, pertanyaan_baru):
-    """Mengganti pertanyaan sesi. Posisi di antrean tidak berubah."""
     sesi = cari_sesi(antrean, nomor)
     if sesi is None:
         return False, "Sesi tidak ditemukan. Pilih sesi dari daftar antrean."
@@ -87,9 +86,8 @@ def ubah_sesi(antrean, nomor, pertanyaan_baru):
     return True, f"Pertanyaan {sesi['nama']} diperbarui."
  
  
-# ---------- DELETE ----------
+#DELETE
 def batalkan_sesi(antrean, nomor):
-    """Mengeluarkan sesi dari antrean."""
     sesi = cari_sesi(antrean, nomor)
     if sesi is None:
         return False, "Sesi tidak ditemukan. Pilih sesi dari daftar antrean."
@@ -97,9 +95,7 @@ def batalkan_sesi(antrean, nomor):
     return True, f"Sesi {sesi['nama']} dibatalkan."
  
  
-# ---------- QUEUE (FIFO) ----------
 def layani_sesi(antrean):
-    """Mengambil sesi paling DEPAN (popleft = FIFO). None jika antrean kosong."""
     if not antrean:
         return None
     return antrean.popleft()

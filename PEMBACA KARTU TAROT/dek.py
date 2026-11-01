@@ -7,7 +7,6 @@ nama_file = lambda nama: nama.strip().lower().replace(" ", "_").replace("-", "_"
  
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
  
- 
 DAFTAR_KARTU = (
     {"nama": "The Fool", "arti": {
         "cinta": "The Fool telah mengepakkan sayapnya untukmu. Di dalam langit asmaramu, helai kartu bernomor nol ini mengembuskan tanda bahwa cintamu kini berdiri di tepi tebing waktu—siap melompat menuju fajar yang murni, memeluk kebebasan yang utuh, dan merajut kembali benih takdir baru yang penuh keajaiban.",
@@ -231,22 +230,18 @@ DAFTAR_KARTU = (
     }},
 )
  
-
 def buat_dek():
     """Membuat dek baru berisi semua kartu (salinan, urutan belum dikocok)."""
     return [dict(kartu) for kartu in DAFTAR_KARTU]
- 
  
 def kocok_dek(dek):
     """Mengocok dek di tempat, lalu mengembalikannya."""
     random.shuffle(dek)
     return dek
  
- 
 def siapkan_dek():
     """Dek baru yang langsung dikocok."""
     return kocok_dek(buat_dek())
- 
  
 def tarik_kartu(dek, jumlah=3):
     """Menarik kartu dari PUNCAK tumpukan (pop = LIFO).

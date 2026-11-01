@@ -3,7 +3,6 @@ format_ramalan = lambda c: (
     + ", ".join(f"{posisi}: {kartu['nama']}" for posisi, kartu in c["kartu"])
 )
  
- 
 def simpan_hasil(riwayat, sesi, kartu_terpilih):
     """Menaruh hasil ramalan di puncak tumpukan riwayat."""
     riwayat.append({
@@ -12,7 +11,6 @@ def simpan_hasil(riwayat, sesi, kartu_terpilih):
         "pertanyaan": sesi["pertanyaan"],
         "kartu": kartu_terpilih,
     })
- 
  
 def lihat_riwayat(riwayat):
     """Daftar riwayat dari yang TERBARU (puncak) ke yang terlama."""

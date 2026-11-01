@@ -1,17 +1,14 @@
 import os
 import random
  
-# Folder gambar: tarot_web/gambar (naik dua tingkat dari modul/dek.py)
 FOLDER_GAMBAR = os.path.join(os.path.dirname(__file__), "gambar")
 EKSTENSI = (".png",)
  
-# lambda: "The Sun", "the-sun", "THE SUN" -> "the_sun"
 nama_file = lambda nama: nama.strip().lower().replace(" ", "_").replace("-", "_")
  
-# Posisi kartu pada satu sesi ramalan (tuple = data tetap).
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
  
-# 22 kartu Major Arcana. Tuple berisi dict supaya data tetap tidak berubah urutannya.
+ 
 DAFTAR_KARTU = (
     {"nama": "The Fool", "arti": {
         "umum": "Awal baru dan keberanian mencoba. Lompat dulu, rapikan rencana belakangan.",

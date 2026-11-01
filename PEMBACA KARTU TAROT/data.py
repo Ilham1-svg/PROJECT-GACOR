@@ -13,15 +13,12 @@ PERTANYAAN = (
 # Urutannya HARUS sama dengan PERTANYAAN di atas
 topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
 assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
-<<<<<<< HEAD
-=======
 
 def topik_dari(pertanyaan):
     if pertanyaan in PERTANYAAN:
         return topik[PERTANYAAN.index(pertanyaan)]
     return "umum"
 
->>>>>>> f40e346bee4ffa1db2afc098e663bccda21dc73e
 # lambda: cara menampilkan daftar sesi
 URUTAN_TAMPILAN = {
     "Urutan antrean": lambda sesi: list(sesi),

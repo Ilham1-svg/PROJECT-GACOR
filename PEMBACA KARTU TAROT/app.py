@@ -2,8 +2,7 @@ import pandas as pd
 import streamlit as st
  
 import data, dek, riwayat
- 
-<<<<<<< HEAD
+
 st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
 # -------- BARU: kunci scrollbar supaya halaman tidak bergoyang --------
 st.markdown(
@@ -15,11 +14,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 # ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
-=======
 st.set_page_config(page_title="Dukun Digital", page_icon="🔮")
  
-
->>>>>>> f40e346bee4ffa1db2afc098e663bccda21dc73e
 if "antrean" not in st.session_state:
     st.session_state.antrean = data.buat_antrean()   
     st.session_state.dek = dek.siapkan_dek()         

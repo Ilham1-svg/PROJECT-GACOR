@@ -26,7 +26,6 @@ if "antrean" not in st.session_state:
 antrean = st.session_state.antrean
 tumpukan = st.session_state.dek
 catatan = st.session_state.riwayat
- 
 
 st.title("Dukun Digital Nusantara")
 st.caption("Sistem Manajemen Antrean dan Pembacaan Kartu Tarot Berbasis Web. "

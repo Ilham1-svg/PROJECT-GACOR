@@ -4,7 +4,7 @@ import streamlit as st
 import data, dek, riwayat
 
 st.set_page_config(page_title="Dukun Digital Nusantara", page_icon="🔮")
-# -------- BARU: kunci scrollbar supaya halaman tidak bergoyang --------
+
 st.markdown(
     """
     <style>
@@ -13,7 +13,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-# ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
+
 if "antrean" not in st.session_state:
     st.session_state.antrean = data.buat_antrean()   
     st.session_state.dek = dek.siapkan_dek()         
@@ -53,9 +53,7 @@ with tab2:
     if not antrean:
         st.info("Antrean masih kosong. Daftarkan peminta ramalan di tab Daftar ramalan.")
     else:
-        # Read
-        urutan = st.radio("Urutkan", list(data.URUTAN_TAMPILAN), horizontal=True)
-        tabel = pd.DataFrame(data.lihat_sesi(antrean, urutan))
+        tabel = pd.DataFrame(data.lihat_sesi(antrean))
         tabel.columns = ["No", "Nama", "Pertanyaan"]
         tabel["No"] = tabel["No"].astype(str)
         st.dataframe(

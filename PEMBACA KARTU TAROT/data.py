@@ -14,11 +14,6 @@ PERTANYAAN = (
 topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
 assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
 
-# lambda: cara menampilkan daftar sesi
-URUTAN_TAMPILAN = {
-    "Urutan antrean": lambda sesi: list(sesi),
-    "Nama A-Z": lambda sesi: sorted(sesi, key=lambda s: s["nama"].lower()),
-}
 # lambda: label singkat satu sesi untuk pilihan di form
 label_sesi = lambda s: f"#{s['no']} {s['nama']}"
 
@@ -49,7 +44,7 @@ def tambah_sesi(antrean, riwayat, nama, pertanyaan):
     return True, f"{sesi['nama']} masuk antrean dengan nomor #{sesi['no']}."
 #READ
 def lihat_sesi(antrean, urutan="Urutan antrean"):
-    return URUTAN_TAMPILAN[urutan](antrean)
+    return list(antrean)
  
 def cari_sesi(antrean, nomor):
     for sesi in antrean:

@@ -9,7 +9,7 @@ EKSTENSI = (".png",)
 nama_file = lambda nama: nama.strip().lower().replace(" ", "_").replace("-", "_")
  
 # Posisi kartu pada satu sesi ramalan (tuple = data tetap).
-posisi = ("Masa lalu", "Masa kini", "Masa depan")
+POSISI = ("Masa lalu", "Masa kini", "Masa depan")
  
 # 22 kartu Major Arcana. Tuple berisi dict supaya data tetap tidak berubah urutannya.
 DAFTAR_KARTU = (

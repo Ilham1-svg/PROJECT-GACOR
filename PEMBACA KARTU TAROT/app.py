@@ -14,8 +14,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 # ---------- DATA SEMENTARA (bertahan selama halaman terbuka) ----------
-st.set_page_config(page_title="Dukun Digital", page_icon="🔮")
- 
 if "antrean" not in st.session_state:
     st.session_state.antrean = data.buat_antrean()   
     st.session_state.dek = dek.siapkan_dek()         
@@ -140,7 +138,8 @@ with tab3:
                 if file_gambar:
                     st.image(file_gambar, width=200)
                 else:
-                    st.caption(f"Gambar belum ditemukan. Cari file {dek.nama_file(kartu['nama'])}.jpg di folder gambar/")
+                    st.caption(f"Gambar belum ditemukan. Taruh file .png yang namanya memuat "
+                               f"'{kartu['nama']}' di folder gambar/")
                 st.markdown(f"### {kartu['nama']}")
                 st.write(dek.arti_kartu(kartu, topik))
  

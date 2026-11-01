@@ -2,9 +2,7 @@ import os
 import random
  
 FOLDER_GAMBAR = os.path.join(os.path.dirname(__file__), "gambar")
- 
-nama_file = lambda nama: nama.strip().lower().replace(" ", "_").replace("-", "_")
- 
+  
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
  
 DAFTAR_KARTU = (
@@ -230,18 +228,11 @@ DAFTAR_KARTU = (
     }},
 )
  
-def buat_dek():
-    """Membuat dek baru berisi semua kartu (salinan, urutan belum dikocok)."""
-    return [dict(kartu) for kartu in DAFTAR_KARTU]
- 
-def kocok_dek(dek):
-    """Mengocok dek di tempat, lalu mengembalikannya."""
+def siapkan_dek():
+    """Dek baru berisi semua kartu, langsung dikocok."""
+    dek = [dict(kartu) for kartu in DAFTAR_KARTU]
     random.shuffle(dek)
     return dek
- 
-def siapkan_dek():
-    """Dek baru yang langsung dikocok."""
-    return kocok_dek(buat_dek())
  
 def tarik_kartu(dek, jumlah=3):
     """Menarik kartu dari PUNCAK tumpukan (pop = LIFO).
@@ -257,8 +248,6 @@ def tarik_kartu(dek, jumlah=3):
 def arti_kartu(kartu, topik):
     """Arti kartu untuk topik tertentu. Jika belum diisi, tampilkan pesan pengganti."""
     arti = kartu["arti"]
-    if isinstance(arti, str):          # format lama: teks biasa
-        return arti
     return arti.get(topik) or "Arti kartu ini untuk topik tersebut belum ditulis."
 
 # lambda: hanya huruf kecil, tanpa angka/spasi/tanda baca. "00-TheFool" -> "thefool"

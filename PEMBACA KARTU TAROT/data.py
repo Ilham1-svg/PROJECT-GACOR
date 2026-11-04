@@ -10,11 +10,10 @@ PERTANYAAN = (
     "Apa yang sebaiknya berhenti kupikirkan?",
     "Apakah aku sedang berada di jalur yang tepat?",
 )
-# Urutannya HARUS sama dengan PERTANYAAN di atas
+
 topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
 assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
 
-# lambda: label singkat satu sesi untuk pilihan di form
 label_sesi = lambda s: f"#{s['no']} {s['nama']}"
 
 def buat_antrean():
@@ -30,7 +29,7 @@ def validasi_input(nama, pertanyaan):
     if pertanyaan not in PERTANYAAN:
         return False, "Pertanyaan tidak dikenal. Pilih dari daftar."
     return True, ""
-#CREATE 
+
 def tambah_sesi(antrean, riwayat, nama, pertanyaan):
     valid, pesan = validasi_input(nama, pertanyaan)
     if not valid:
@@ -42,7 +41,7 @@ def tambah_sesi(antrean, riwayat, nama, pertanyaan):
     }
     antrean.append(sesi)
     return True, f"{sesi['nama']} masuk antrean dengan nomor #{sesi['no']}."
-#READ
+
 def lihat_sesi(antrean, urutan="Urutan antrean"):
     return list(antrean)
  
@@ -51,7 +50,7 @@ def cari_sesi(antrean, nomor):
         if sesi["no"] == nomor:
             return sesi
     return None
-#UPDATE
+
 def ubah_sesi(antrean, nomor, pertanyaan_baru):
     sesi = cari_sesi(antrean, nomor)
     if sesi is None:
@@ -61,7 +60,7 @@ def ubah_sesi(antrean, nomor, pertanyaan_baru):
         return False, pesan
     sesi["pertanyaan"] = pertanyaan_baru
     return True, f"Pertanyaan {sesi['nama']} diperbarui."
-#DELETE
+
 def batalkan_sesi(antrean, nomor):
     sesi = cari_sesi(antrean, nomor)
     if sesi is None:

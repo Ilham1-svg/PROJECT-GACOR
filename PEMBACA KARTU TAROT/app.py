@@ -68,7 +68,7 @@ with tab2:
         daftar_no = [sesi["no"] for sesi in antrean]
         nama_sesi = lambda n: data.label_sesi(data.cari_sesi(antrean, n))
  
-        st.markdown("### Ubah pertanyaan")
+        st.markdown("Ubah pertanyaan")
         with st.form("form_ubah", clear_on_submit=True):
             pilih_ubah = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_ubah")
             pertanyaan_baru = st.selectbox("Pertanyaan baru", data.PERTANYAAN, key="tanya_baru")
@@ -131,8 +131,7 @@ with tab3:
                 if file_gambar:
                     st.image(file_gambar, width=200)
                 else:
-                    st.caption(f"Gambar belum ditemukan. Taruh file .png yang namanya memuat "
-                               f"'{kartu['nama']}' di folder gambar/")
+                    st.caption(f"Gambar belum ditemukan. Taruh file .png berawalan {dek.DAFTAR_KARTU.index(kartu):02d} di folder gambar/")
                 st.markdown(f"### {kartu['nama']}")
                 st.write(dek.arti_kartu(kartu, topik))
  

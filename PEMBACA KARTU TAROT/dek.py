@@ -241,17 +241,13 @@ def tarik_kartu(dek, jumlah=3):
  
 def arti_kartu(kartu, topik):
     arti = kartu["arti"]
-    return arti.get(topik) or "Arti kartu ini untuk topik tersebut belum ditulis."
+    return arti.get(topik)
 
 huruf = lambda teks: "".join(c for c in teks.lower() if c.isalpha())
 
 def path_gambar(kartu):
-    if not os.path.isdir(FOLDER_GAMBAR):
-        return None
-    lengkap = huruf(kartu["nama"])                                   
-    pendek = lengkap[3:] if lengkap.startswith("the") else lengkap   
-    for berkas in sorted(os.listdir(FOLDER_GAMBAR)):
-        nama, ekstensi = os.path.splitext(berkas)
-        if ekstensi.lower() == ".png" and huruf(nama).endswith(pendek):
-            return os.path.join(FOLDER_GAMBAR, berkas)
+    nomor = DAFTAR_KARTU.index(kartu)
+    path = os.path.join(FOLDER_GAMBAR, f"{nomor:02d}.png")
+    if os.path.exists(path):
+        return path
     return None

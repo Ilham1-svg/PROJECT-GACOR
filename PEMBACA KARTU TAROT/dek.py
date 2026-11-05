@@ -229,38 +229,25 @@ DAFTAR_KARTU = (
 )
  
 def siapkan_dek():
-    """Dek baru berisi semua kartu, langsung dikocok."""
     dek = [dict(kartu) for kartu in DAFTAR_KARTU]
     random.shuffle(dek)
     return dek
  
 def tarik_kartu(dek, jumlah=3):
-    """Menarik kartu dari PUNCAK tumpukan (pop = LIFO).
- 
-    Mengembalikan list tuple (posisi, kartu).
-    Jika kartu di dek tidak cukup, dek diisi ulang dan dikocok dulu (di tempat).
-    """
     jumlah = min(jumlah, len(POSISI))
     if len(dek) < jumlah:
         dek[:] = siapkan_dek()
     return [(POSISI[i], dek.pop()) for i in range(jumlah)]
  
 def arti_kartu(kartu, topik):
-    """Arti kartu untuk topik tertentu. Jika belum diisi, tampilkan pesan pengganti."""
     arti = kartu["arti"]
-    return arti.get(topik) or "Arti kartu ini untuk topik tersebut belum ditulis."
+    return arti.get(topik)
 
-# lambda: hanya huruf kecil, tanpa angka/spasi/tanda baca. "00-TheFool" -> "thefool"
 huruf = lambda teks: "".join(c for c in teks.lower() if c.isalpha())
 
 def path_gambar(kartu):
-    """Alamat file gambar sebuah kartu. None jika filenya belum ada."""
-    if not os.path.isdir(FOLDER_GAMBAR):
-        return None
-    lengkap = huruf(kartu["nama"])                                   # "thefool"
-    pendek = lengkap[3:] if lengkap.startswith("the") else lengkap   # "fool"
-    for berkas in sorted(os.listdir(FOLDER_GAMBAR)):
-        nama, ekstensi = os.path.splitext(berkas)
-        if ekstensi.lower() == ".png" and huruf(nama).endswith(pendek):
-            return os.path.join(FOLDER_GAMBAR, berkas)
+    nomor = DAFTAR_KARTU.index(kartu)
+    path = os.path.join(FOLDER_GAMBAR, f"{nomor:02d}.png")
+    if os.path.exists(path):
+        return path
     return None

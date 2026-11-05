@@ -4,7 +4,6 @@ format_ramalan = lambda c: (
 )
  
 def simpan_hasil(riwayat, sesi, kartu_terpilih):
-    """Menaruh hasil ramalan di puncak tumpukan riwayat."""
     riwayat.append({
         "no": sesi["no"],
         "nama": sesi["nama"],
@@ -13,6 +12,5 @@ def simpan_hasil(riwayat, sesi, kartu_terpilih):
     })
  
 def lihat_riwayat(riwayat):
-    """Daftar riwayat dari yang TERBARU (puncak) ke yang terlama."""
     return list(reversed(riwayat))
  

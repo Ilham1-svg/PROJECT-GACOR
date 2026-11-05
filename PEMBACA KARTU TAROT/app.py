@@ -36,7 +36,6 @@ if st.session_state.pesan:
  
 tab1, tab2, tab3, tab4 = st.tabs(["Daftar ramalan", "Antrean", "Ruang ramal", "Riwayat ramalan"])
  
-# ==================== TAB 1: DAFTAR RAMALAN (Create) ====================
 with tab1:
     st.subheader("Daftar ramalan")
     with st.form("form_daftar", clear_on_submit=True):
@@ -47,7 +46,6 @@ with tab1:
         st.session_state.pesan = data.tambah_sesi(antrean, catatan, nama, pertanyaan)
         st.rerun()
  
-# ==================== TAB 2: ANTREAN (Read, Update, Delete) ====================
 with tab2:
     st.subheader("Antrean")
     if not antrean:
@@ -70,8 +68,7 @@ with tab2:
         daftar_no = [sesi["no"] for sesi in antrean]
         nama_sesi = lambda n: data.label_sesi(data.cari_sesi(antrean, n))
  
-        # Update
-        st.markdown("### Ubah pertanyaan")
+        st.markdown("Ubah pertanyaan")
         with st.form("form_ubah", clear_on_submit=True):
             pilih_ubah = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_ubah")
             pertanyaan_baru = st.selectbox("Pertanyaan baru", data.PERTANYAAN, key="tanya_baru")
@@ -80,8 +77,7 @@ with tab2:
             st.session_state.pesan = data.ubah_sesi(antrean, pilih_ubah, pertanyaan_baru)
             st.rerun()
  
-        # Delete
-        st.markdown("### Batalkan sesi")
+        st.markdown("Batalkan sesi")
         with st.form("form_batal", clear_on_submit=True):
             pilih_batal = st.selectbox("Pilih sesi", daftar_no, format_func=nama_sesi, key="pilih_batal")
             yakin = st.checkbox("Ya, batalkan sesi ini")
@@ -93,7 +89,6 @@ with tab2:
                 st.session_state.pesan = (False, "Centang konfirmasi dulu sebelum membatalkan sesi.")
             st.rerun()
  
-# ==================== TAB 3: RUANG RAMAL (Queue + Stack) ====================
 with tab3:
     st.subheader("Ruang ramal")
     kiri, kanan = st.columns(2)
@@ -110,8 +105,8 @@ with tab3:
             st.session_state.pesan = (False, "Antrean kosong. Daftarkan peminta ramalan dulu.")
         else:
             acak_ulang = len(tumpukan) < len(dek.POSISI)
-            sesi = data.layani_sesi(antrean)                 # FIFO: yang paling depan
-            kartu = dek.tarik_kartu(tumpukan)                # LIFO: dari puncak dek
+            sesi = data.layani_sesi(antrean)                 
+            kartu = dek.tarik_kartu(tumpukan)                
             riwayat.simpan_hasil(catatan, sesi, kartu)
             st.session_state.hasil = {"sesi": sesi, "kartu": kartu}
             st.session_state.pesan = (True, f"Ramalan untuk {sesi['nama']} selesai."
@@ -136,12 +131,10 @@ with tab3:
                 if file_gambar:
                     st.image(file_gambar, width=200)
                 else:
-                    st.caption(f"Gambar belum ditemukan. Taruh file .png yang namanya memuat "
-                               f"'{kartu['nama']}' di folder gambar/")
+                    st.caption(f"Gambar belum ditemukan. Taruh file .png berawalan {dek.DAFTAR_KARTU.index(kartu):02d} di folder gambar/")
                 st.markdown(f"### {kartu['nama']}")
                 st.write(dek.arti_kartu(kartu, topik))
  
-# ==================== TAB 4: RIWAYAT RAMALAN (Stack) ====================
 with tab4:
     st.subheader("Riwayat ramalan")
     daftar_riwayat = riwayat.lihat_riwayat(catatan)

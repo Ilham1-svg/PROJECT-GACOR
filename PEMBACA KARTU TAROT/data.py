@@ -1,74 +1,28 @@
-from collections import deque
- 
 PERTANYAAN = (
-    "Bagaimana peruntungan percintaanku?",
-    "Bagaimana perkembangan kuliah dan tugas-tugasku?",
-    "Bagaimana prospek karier atau magangku?",
-    "Bagaimana kondisi keuanganku ke depan?",
-    "Bagaimana hubunganku dengan teman dan keluarga?",
-    "Bagaimana kondisi semangat dan kesehatanku?",
-    "Apa yang sebaiknya berhenti kupikirkan?",
-    "Apakah aku sedang berada di jalur yang tepat?",
+    "Bagaimana perkembangan hubungan sosial dan percintaanku?",
+    "Bagaimana perkembangan pendidikan, karier, dan potensi diriku?",
+    "Bagaimana kondisi kesejahteraan hidupku?",
+    "Apakah keputusan dan langkah yang sedang kuambil sudah benar?",
 )
 
-topik = ("cinta", "kuliah", "karier", "uang", "sosial", "kesehatan", "lepas", "jalur")
-assert len(PERTANYAAN) == len(topik), "PERTANYAAN dan TOPIK harus sama panjang"
+rapikan_nama = lambda nama: " ".join(nama.strip().split()).title()
 
-label_sesi = lambda s: f"#{s['no']} {s['nama']}"
-
-def buat_antrean():
-    return deque()
- 
-def nomor_berikutnya(antrean, riwayat):
-    semua = [s["no"] for s in antrean] + [c["no"] for c in riwayat]
-    return max(semua, default=0) + 1
- 
-def validasi_input(nama, pertanyaan):
-    if not nama.strip():
-        return False, "Nama belum diisi. Tulis nama peminta ramalan."
+def tambah_peminta(antrean, nama, pertanyaan):
+    nama = rapikan_nama(nama)
+    if not nama:
+        return "Nama tidak boleh kosong."
     if pertanyaan not in PERTANYAAN:
-        return False, "Pertanyaan tidak dikenal. Pilih dari daftar."
-    return True, ""
+        return "Pertanyaan tidak valid."
+    antrean.append({"nama": nama, "pertanyaan": pertanyaan})
+    return "ok"
 
-def tambah_sesi(antrean, riwayat, nama, pertanyaan):
-    valid, pesan = validasi_input(nama, pertanyaan)
-    if not valid:
-        return False, pesan
-    sesi = {
-        "no": nomor_berikutnya(antrean, riwayat),
-        "nama": nama.strip(),
-        "pertanyaan": pertanyaan,
-    }
-    antrean.append(sesi)
-    return True, f"{sesi['nama']} masuk antrean dengan nomor #{sesi['no']}."
+def ubah_peminta(antrean, indeks, pertanyaan_baru):
+    if 0 <= indeks < len(antrean) and pertanyaan_baru in PERTANYAAN:
+        antrean[indeks]["pertanyaan"] = pertanyaan_baru
+        return True
+    return False
 
-def lihat_sesi(antrean, urutan="Urutan antrean"):
-    return list(antrean)
- 
-def cari_sesi(antrean, nomor):
-    for sesi in antrean:
-        if sesi["no"] == nomor:
-            return sesi
+def hapus_peminta(antrean, indeks):
+    if 0 <= indeks < len(antrean):
+        return antrean.pop(indeks)
     return None
-
-def ubah_sesi(antrean, nomor, pertanyaan_baru):
-    sesi = cari_sesi(antrean, nomor)
-    if sesi is None:
-        return False, "Sesi tidak ditemukan. Pilih sesi dari daftar antrean."
-    valid, pesan = validasi_input(sesi["nama"], pertanyaan_baru)
-    if not valid:
-        return False, pesan
-    sesi["pertanyaan"] = pertanyaan_baru
-    return True, f"Pertanyaan {sesi['nama']} diperbarui."
-
-def batalkan_sesi(antrean, nomor):
-    sesi = cari_sesi(antrean, nomor)
-    if sesi is None:
-        return False, "Sesi tidak ditemukan. Pilih sesi dari daftar antrean."
-    antrean.remove(sesi)
-    return True, f"Sesi {sesi['nama']} dibatalkan."
- 
-def layani_sesi(antrean):
-    if not antrean:
-        return None
-    return antrean.popleft()

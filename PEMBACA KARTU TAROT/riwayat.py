@@ -1,4 +1,3 @@
-
 def simpan_riwayat(riwayat, hasil):
     catatan = {
         "nama": hasil["nama"],

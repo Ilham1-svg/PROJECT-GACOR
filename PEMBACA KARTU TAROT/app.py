@@ -54,10 +54,13 @@ with tab2:
                 st.rerun()
         else:
             konfirmasi = st.checkbox("Saya yakin ingin membatalkan antrean ini.")
-            if st.button("Batalkan", disabled=not konfirmasi):
-                if hapus_peminta(antrean, int(nomor) - 1):
-                    st.session_state.pesan_antrean = ("success", "Antrean berhasil dibatalkan.")
-                st.rerun()
+            if st.button("Batalkan"):
+                if not konfirmasi:
+                    st.warning("Silakan centang konfirmasi terlebih dahulu!")
+                else:
+                    if hapus_peminta(antrean, int(nomor) - 1):
+                        st.session_state.pesan_antrean = ("success", "Antrean berhasil dibatalkan.")
+                    st.rerun()
     if st.session_state.get("pesan_antrean"):
         tipe, teks = st.session_state.pop("pesan_antrean")
         getattr(st, tipe)(teks)
@@ -108,6 +111,8 @@ with tab3:
                 with kolom_gambar:
                     if gambar:
                         st.image(gambar, width=180)
+                    else:
+                        st.info("Gambar kartu belum tersedia.")
                 with kolom_arti:
                     st.write(arti)
         st.caption("Anggap ini bahan refleksi, bukan kepastian. Keputusan tetap ada di tanganmu.")

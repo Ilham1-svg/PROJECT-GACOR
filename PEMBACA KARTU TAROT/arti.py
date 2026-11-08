@@ -118,7 +118,9 @@ def makna_statis(nama_kartu, topik, waktu=None):
         raise ValueError(f"Makna kartu '{nama_kartu}' belum tersedia.")
     if topik not in PERTANYAAN:
         raise ValueError("Pertanyaan tidak valid.")
-    
     inti, *makna_topik = MAKNA[nama_kartu]
-    isi = makna_topik[PERTANYAAN.index(topik)]
-    return f"Kartu ini melambangkan {inti}.\n\n{isi}"
+    indeks = PERTANYAAN.index(topik)
+    if indeks < len(makna_topik) and makna_topik[indeks]:
+        isi = makna_topik[indeks]
+        return f"Kartu ini melambangkan {inti}.\n\n{isi}"
+    return f"Arti umum kartu ini: {inti}."

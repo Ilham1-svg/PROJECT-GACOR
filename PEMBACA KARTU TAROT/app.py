@@ -115,7 +115,7 @@ with tab3:
                         st.info("Gambar kartu belum tersedia.")
                 with kolom_arti:
                     st.write(arti)
-        st.caption("Anggap ini bahan refleksi, bukan kepastian. Keputusan tetap ada di tanganmu.")
+        st.caption("Ini bukan kepastian. Keputusan tetap ada di tanganmu.")
 
 with tab4:
     st.subheader("Riwayat Ramalan")

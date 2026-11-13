@@ -122,5 +122,7 @@ def makna_statis(nama_kartu, topik, waktu=None):
     indeks = PERTANYAAN.index(topik)
     if indeks < len(makna_topik) and makna_topik[indeks]:
         isi = makna_topik[indeks]
+        if waktu:
+            isi = f"Di {waktu.lower()}, {isi[0].lower() + isi[1:]}"
         return f"Kartu ini melambangkan {inti}.\n\n{isi}"
-    return f"Arti umum kartu ini: {inti}."
+    return f"Arti umum kartu ini adalah {inti}."

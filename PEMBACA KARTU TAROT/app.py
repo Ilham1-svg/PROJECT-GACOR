@@ -1,8 +1,7 @@
 import streamlit as st
 from data import PERTANYAAN, tambah_peminta, ubah_peminta, hapus_peminta
-from dek import kocok_dek, tarik_kartu, path_gambar
+from dek import kocok_dek, tarik_kartu, path_gambar, makna_statis
 from riwayat import simpan_riwayat
-from arti import makna_statis
 
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
 st.set_page_config(page_title="GORANGO", layout="centered")
@@ -24,10 +23,14 @@ with tab1:
     with st.form("form_daftar", clear_on_submit=True):
         nama = st.text_input("Nama peminta")
         pertanyaan = st.selectbox("Pilih pertanyaan", PERTANYAAN)
-        kirim = st.form_submit_button("Ambil Nomor Antrean")
+        kirim = st.form_submit_button("Ambil Nomor Antrean")    
     if kirim:
         pesan = tambah_peminta(st.session_state.antrean, nama, pertanyaan)
-        st.success(f"{nama} Berhasil masuk antrean.") if pesan == "ok" else st.warning(pesan)
+        if pesan == "ok": 
+            st.success(f"{nama} Berhasil masuk antrean.")
+        else: 
+            st.warning(pesan)
+
 
 with tab2:
     st.subheader("Antrean Peminta")
@@ -65,6 +68,7 @@ with tab3:
         st.session_state.pesan_ruang = ("success", "Dek kartu berhasil dikocok ulang.")
         st.rerun()
     st.write(f"Jumlah peminta dalam antrean: **{len(antrean)}**")
+    
     if not antrean and not st.session_state.hasil:
         st.info("Belum ada peminta. Daftarkan peminta terlebih dahulu.")
     elif antrean:
@@ -73,26 +77,42 @@ with tab3:
             if len(st.session_state.dek) < 3: st.session_state.dek = kocok_dek()
             kartu = tarik_kartu(st.session_state.dek, 3)
             arti = [makna_statis(k["nama"], peminta["pertanyaan"], w) for k, w in zip(kartu, POSISI)]
-            st.session_state.hasil = {"nama": peminta["nama"], "pertanyaan": peminta["pertanyaan"], "kartu": kartu, "arti": arti}
+            
+            hasil_baru = {
+                "nama": peminta["nama"], 
+                "pertanyaan": peminta["pertanyaan"], 
+                "kartu": kartu, 
+                "arti": arti
+            }
+            st.session_state.hasil = hasil_baru
+            
+            simpan_riwayat(st.session_state.riwayat, hasil_baru)   
             hapus_peminta(antrean, 0)
             st.rerun()
+            
     if st.session_state.get("pesan_ruang"):
         tipe, teks = st.session_state.pop("pesan_ruang")
         getattr(st, tipe)(teks)
+
     if st.session_state.hasil:
         hasil = st.session_state.hasil
         st.divider()
         st.write(f"**Peminta:** {hasil['nama']}")
         st.write(f"**Pertanyaan:** {hasil['pertanyaan']}")
         st.caption("Urutan kartu: Masa lalu → Masa kini → Masa depan")
+        
         for posisi, kartu, arti in zip(POSISI, hasil["kartu"], hasil["arti"]):
             with st.container(border=True):
                 st.markdown(f"**{posisi}: {kartu['nama']}**")
                 kolom_gambar, kolom_arti = st.columns([1, 2])
                 gambar = path_gambar(kartu["gambar"])
-                with kolom_gambar: st.image(gambar, width=180) if gambar else st.info("Gambar kartu belum tersedia.")
-                with kolom_arti: st.write(arti)
-        st.caption("Ini bukan kepastian. Keputusan tetap ada di tanganmu.")
+                with kolom_gambar:
+                    if gambar: st.image(gambar, width=180)
+                    else: st.info("Gambar kartu belum tersedia.")
+                        
+                with kolom_arti:
+                    st.write(arti)                   
+        st.write("Ini bukan kepastian. Keputusan tetap ada di tanganmu.")
 
 with tab4:
     st.subheader("Riwayat Ramalan")

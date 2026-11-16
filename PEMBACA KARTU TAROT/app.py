@@ -35,7 +35,6 @@ with tab1:
         else: 
             st.warning(pesan)
 
-
 with tab2:
     st.subheader("Antrean Peminta")
     antrean = st.session_state.antrean
@@ -61,6 +60,7 @@ with tab2:
                     if hapus_peminta(antrean, int(nomor) - 1): st.session_state.pesan_antrean = ("success", "Antrean berhasil dibatalkan.")
                     st.session_state.n_batal = n + 1
                     st.rerun()
+                    
     if st.session_state.get("pesan_antrean"):
         tipe, teks = st.session_state.pop("pesan_antrean")
         getattr(st, tipe)(teks)
@@ -69,10 +69,12 @@ with tab3:
     st.subheader("Ruang Ramal")
     antrean = st.session_state.antrean
     st.metric("Jumlah Kartu Tersisa", len(st.session_state.dek), " / 22")
+
     if st.button("Kocok Ulang Kartu"):
         st.session_state.dek = kocok_dek()
         st.session_state.pesan_ruang = ("success", "Dek kartu berhasil dikocok ulang.")
         st.rerun()
+
     st.write(f"Jumlah peminta dalam antrean: **{len(antrean)}**")
     if st.button("Layani Peminta Berikutnya", type="primary"):
         if not antrean:
@@ -94,6 +96,7 @@ with tab3:
             hapus_peminta(antrean, 0)
             st.session_state.pesan_ruang = ("success", f"{hasil_baru['nama']} berhasil dilayani.")
             st.rerun()
+
     if st.session_state.get("pesan_ruang"):
         tipe, teks = st.session_state.pop("pesan_ruang")
         getattr(st, tipe)(teks)

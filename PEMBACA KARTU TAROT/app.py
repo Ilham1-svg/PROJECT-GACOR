@@ -17,13 +17,8 @@ st.markdown(
 st.title("🔮 Dukun Online")
 st.caption("Sistem Pembaca Kartu Tarot Berbasis Streamlit")
 
-for key, val in [("antrean", []), ("dek", kocok_dek()), ("riwayat", []), ("hasil", None), ("flash", None)]:
+for key, val in [("antrean", []), ("dek", kocok_dek()), ("riwayat", []), ("hasil", None)]:
     if key not in st.session_state: st.session_state[key] = val
-
-if st.session_state.flash:
-    tipe, pesan = st.session_state.flash
-    getattr(st, tipe)(pesan)
-    st.session_state.flash = None
 
 tab1, tab2, tab3, tab4 = st.tabs(["Daftar Ramalan", "Antrean", "Ruang Ramal", "Riwayat Ramalan"])
 

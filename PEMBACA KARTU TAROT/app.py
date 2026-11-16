@@ -5,6 +5,15 @@ from riwayat import simpan_riwayat
 
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
 st.set_page_config(page_title="GORANGO", layout="centered")
+st.markdown(
+    """
+    <style>
+    html { overflow-y: scroll; }
+    [data-testid="stMain"] { scrollbar-gutter: stable; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 st.title("🔮 Dukun Online")
 st.caption("Sistem Pembaca Kartu Tarot Berbasis Streamlit")
 
@@ -48,12 +57,14 @@ with tab2:
                 if ubah_peminta(antrean, int(nomor) - 1, pertanyaan_baru): st.session_state.pesan_antrean = ("success", "Pertanyaan berhasil diubah.")
                 st.rerun()
         else:
-            konfirmasi = st.checkbox("Saya yakin ingin membatalkan antrean ini.")
+            n = st.session_state.get("n_batal", 0)
+            konfirmasi = st.checkbox("Saya yakin ingin membatalkan antrean ini.", key=f"konfirmasi_{n}")
             if st.button("Batalkan"):
                 if not konfirmasi:
                     st.warning("Silakan centang konfirmasi terlebih dahulu!")
                 else:
                     if hapus_peminta(antrean, int(nomor) - 1): st.session_state.pesan_antrean = ("success", "Antrean berhasil dibatalkan.")
+                    st.session_state.n_batal = n + 1
                     st.rerun()
     if st.session_state.get("pesan_antrean"):
         tipe, teks = st.session_state.pop("pesan_antrean")
@@ -68,27 +79,29 @@ with tab3:
         st.session_state.pesan_ruang = ("success", "Dek kartu berhasil dikocok ulang.")
         st.rerun()
     st.write(f"Jumlah peminta dalam antrean: **{len(antrean)}**")
-    
-    if not antrean and not st.session_state.hasil:
-        st.info("Belum ada peminta. Daftarkan peminta terlebih dahulu.")
-    elif antrean:
-        if st.button("Layani Peminta Berikutnya", type="primary"):
+    if st.button("Layani Peminta Berikutnya", type="primary"):
+        if not antrean:
+            st.warning("Antrean kosong. Daftarkan peminta terlebih dahulu.")
+        else:
             peminta = antrean[0]
-            if len(st.session_state.dek) < 3: st.session_state.dek = kocok_dek()
+            if len(st.session_state.dek) < 3:
+                st.session_state.dek = kocok_dek()
             kartu = tarik_kartu(st.session_state.dek, 3)
             arti = [makna_statis(k["nama"], peminta["pertanyaan"], w) for k, w in zip(kartu, POSISI)]
-            
             hasil_baru = {
-                "nama": peminta["nama"], 
-                "pertanyaan": peminta["pertanyaan"], 
-                "kartu": kartu, 
+                "nama": peminta["nama"],
+                "pertanyaan": peminta["pertanyaan"],
+                "kartu": kartu,
                 "arti": arti
             }
             st.session_state.hasil = hasil_baru
-            
-            simpan_riwayat(st.session_state.riwayat, hasil_baru)   
+            simpan_riwayat(st.session_state.riwayat, hasil_baru)
             hapus_peminta(antrean, 0)
+            st.session_state.pesan_ruang = ("success", f"{hasil_baru['nama']} berhasil dilayani.")
             st.rerun()
+    if st.session_state.get("pesan_ruang"):
+        tipe, teks = st.session_state.pop("pesan_ruang")
+        getattr(st, tipe)(teks)
 
     if st.session_state.hasil:
         hasil = st.session_state.hasil
@@ -115,7 +128,7 @@ with tab4:
     if not st.session_state.riwayat:
         st.info("Belum ada riwayat ramalan.")
     else:
-        for i, catatan in enumerate(reversed(st.session_state.riwayat), start=1):
+        for i, catatan in enumerate(st.session_state.riwayat, start=1):
             with st.expander(f"{i}. {catatan['nama']}"):
                 st.write(f"Pertanyaan: {catatan['pertanyaan']}")
                 for posisi, kartu, arti in zip(POSISI, catatan["kartu"], catatan["arti"]):

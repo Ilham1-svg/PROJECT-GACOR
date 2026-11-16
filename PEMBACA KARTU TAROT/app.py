@@ -89,10 +89,6 @@ with tab3:
             simpan_riwayat(st.session_state.riwayat, hasil_baru)   
             hapus_peminta(antrean, 0)
             st.rerun()
-            
-    if st.session_state.get("pesan_ruang"):
-        tipe, teks = st.session_state.pop("pesan_ruang")
-        getattr(st, tipe)(teks)
 
     if st.session_state.hasil:
         hasil = st.session_state.hasil

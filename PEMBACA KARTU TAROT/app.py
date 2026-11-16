@@ -128,7 +128,7 @@ with tab4:
     if not st.session_state.riwayat:
         st.info("Belum ada riwayat ramalan.")
     else:
-        for i, catatan in enumerate(st.session_state.riwayat, start=1):
+        for i, catatan in enumerate(reversed(st.session_state.riwayat), start=1):
             with st.expander(f"{i}. {catatan['nama']}"):
                 st.write(f"Pertanyaan: {catatan['pertanyaan']}")
                 for posisi, kartu, arti in zip(POSISI, catatan["kartu"], catatan["arti"]):

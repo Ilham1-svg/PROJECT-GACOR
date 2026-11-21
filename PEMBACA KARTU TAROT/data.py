@@ -1,9 +1,11 @@
-PERTANYAAN = (
-    "Bagaimana perkembangan hubungan sosial dan percintaanku?",
-    "Bagaimana perkembangan pendidikan, karier, dan potensi diriku?",
-    "Bagaimana kondisi kesejahteraan hidupku?",
-    "Apakah keputusan dan langkah yang sedang kuambil sudah benar?",
-)
+import json
+import os
+
+FILE_TAROT = os.path.join(os.path.dirname(__file__), "tarot.json")
+with open(FILE_TAROT, encoding="utf-8") as f:
+    DATA_TAROT = json.load(f)
+
+PERTANYAAN = tuple(DATA_TAROT["pertanyaan"])
 
 rapikan_nama = lambda nama: " ".join(nama.strip().split()).title()
 

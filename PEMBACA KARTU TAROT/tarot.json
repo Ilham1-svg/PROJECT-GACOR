@@ -1,0 +1,298 @@
+{
+  "pertanyaan": [
+    "Bagaimana perkembangan hubungan sosial dan percintaanku?",
+    "Bagaimana perkembangan pendidikan, karier, dan potensi diriku?",
+    "Bagaimana kondisi kesejahteraan hidupku?",
+    "Apakah keputusan dan langkah yang sedang kuambil sudah benar?"
+  ],
+  "dek": [
+    {
+      "nama": "The Fool",
+      "gambar": "00.png"
+    },
+    {
+      "nama": "The Magician",
+      "gambar": "01.png"
+    },
+    {
+      "nama": "The High Priestess",
+      "gambar": "02.png"
+    },
+    {
+      "nama": "The Empress",
+      "gambar": "03.png"
+    },
+    {
+      "nama": "The Emperor",
+      "gambar": "04.png"
+    },
+    {
+      "nama": "The Hierophant",
+      "gambar": "05.png"
+    },
+    {
+      "nama": "The Lovers",
+      "gambar": "06.png"
+    },
+    {
+      "nama": "The Chariot",
+      "gambar": "07.png"
+    },
+    {
+      "nama": "Strength",
+      "gambar": "08.png"
+    },
+    {
+      "nama": "The Hermit",
+      "gambar": "09.png"
+    },
+    {
+      "nama": "Wheel of Fortune",
+      "gambar": "10.png"
+    },
+    {
+      "nama": "Justice",
+      "gambar": "11.png"
+    },
+    {
+      "nama": "The Hanged Man",
+      "gambar": "12.png"
+    },
+    {
+      "nama": "Death",
+      "gambar": "13.png"
+    },
+    {
+      "nama": "Temperance",
+      "gambar": "14.png"
+    },
+    {
+      "nama": "The Devil",
+      "gambar": "15.png"
+    },
+    {
+      "nama": "The Tower",
+      "gambar": "16.png"
+    },
+    {
+      "nama": "The Star",
+      "gambar": "17.png"
+    },
+    {
+      "nama": "The Moon",
+      "gambar": "18.png"
+    },
+    {
+      "nama": "The Sun",
+      "gambar": "19.png"
+    },
+    {
+      "nama": "Judgement",
+      "gambar": "20.png"
+    },
+    {
+      "nama": "The World",
+      "gambar": "21.png"
+    }
+  ],
+  "arti": {
+    "The Fool": {
+      "inti": "awal baru dan keberanian melangkah",
+      "topik": [
+        "Ada peluang kenalan atau awal hubungan baru. Tetap terbuka, tapi jangan lengah.",
+        "Saat yang baik mencoba jalur baru. Siapkan dasar yang cukup sebelum melompat.",
+        "Semangat barumu mendukung kondisi hidup. Beri ruang untuk hal yang membuatmu ringan.",
+        "Langkahmu berani tapi belum pasti. Imbangi dengan pertimbangan realistis."
+      ]
+    },
+    "The Magician": {
+      "inti": "kemampuan, fokus, dan inisiatif",
+      "topik": [
+        "Kamu punya daya tarik dan kemampuan berkomunikasi. Gunakan dengan tulus.",
+        "Kemampuanmu cukup untuk mewujudkan rencana. Fokus pada satu tujuan.",
+        "Kamu punya sumber daya untuk memperbaiki keadaan. Mulai dari langkah kecil.",
+        "Kamu punya bekal untuk memilih. Yang dibutuhkan tinggal tindakan yang terarah."
+      ]
+    },
+    "The High Priestess": {
+      "inti": "intuisi, ketenangan, dan hal yang belum terungkap",
+      "topik": [
+        "Ada hal yang belum terucap dalam relasimu. Dengarkan perasaan dan amati dulu.",
+        "Belajar dan mengamati lebih bermanfaat daripada terburu-buru. Percayai insting yang sudah terlatih.",
+        "Ketenangan batin sedang penting. Luangkan waktu untuk merenung dan beristirahat.",
+        "Jawabannya mungkin sudah ada di dalam dirimu. Beri waktu untuk hening sebelum memutuskan."
+      ]
+    },
+    "The Empress": {
+      "inti": "kasih sayang, kelimpahan, dan pertumbuhan",
+      "topik": [
+        "Relasi yang hangat dan peduli sedang berkembang. Rawat dengan perhatian.",
+        "Usaha yang dirawat sabar akan tumbuh. Kreativitasmu layak diberi ruang.",
+        "Kondisi hidup cenderung nyaman dan subur. Jaga keseimbangan dan nikmati prosesnya.",
+        "Keputusan yang mendukung pertumbuhan dan kepedulian cenderung tepat."
+      ]
+    },
+    "The Emperor": {
+      "inti": "struktur, disiplin, dan kepemimpinan",
+      "topik": [
+        "Hubungan butuh batas yang jelas dan sikap dewasa. Hindari terlalu mengontrol.",
+        "Disiplin dan perencanaan jadi kunci kemajuan. Bangun kebiasaan yang konsisten.",
+        "Hidup yang teratur menopang kesejahteraanmu. Atur jadwal, keuangan, dan istirahat.",
+        "Putuskan dengan logika dan tanggung jawab. Pastikan langkahmu punya rencana jelas."
+      ]
+    },
+    "The Hierophant": {
+      "inti": "tradisi, bimbingan, dan nilai bersama",
+      "topik": [
+        "Nilai dan latar belakang bersama memengaruhi hubunganmu. Hormati perbedaan.",
+        "Belajar dari mentor atau jalur yang sudah teruji akan membantu.",
+        "Rutinitas dan dukungan komunitas menjaga kestabilan hidupmu.",
+        "Pertimbangkan nasihat orang berpengalaman, tapi tetap selaraskan dengan nilaimu sendiri."
+      ]
+    },
+    "The Lovers": {
+      "inti": "pilihan, keselarasan, dan hubungan",
+      "topik": [
+        "Ada pilihan penting dalam relasi. Kejujuran dan nilai yang sejalan jadi dasarnya.",
+        "Kamu mungkin memilih antara dua arah. Pilih yang selaras dengan nilaimu.",
+        "Keselarasan antara hati dan tindakan menopang kesejahteraanmu.",
+        "Keputusan ini soal nilai, bukan hanya untung rugi. Pilih dengan jujur pada diri sendiri."
+      ]
+    },
+    "The Chariot": {
+      "inti": "tekad, kemajuan, dan kendali diri",
+      "topik": [
+        "Dorongan untuk maju kuat, tapi jaga agar tidak mengabaikan perasaan orang lain.",
+        "Tekad dan fokusmu membawa kemajuan nyata. Jaga arah di tengah banyak tarikan.",
+        "Kamu sedang berusaha mengendalikan keadaan. Pastikan tenagamu tidak terkuras.",
+        "Langkahmu penuh tekad. Pastikan arahnya jelas sebelum melaju kencang."
+      ]
+    },
+    "Strength": {
+      "inti": "keberanian lembut, sabar, dan kendali emosi",
+      "topik": [
+        "Kesabaran dan empati lebih kuat daripada ego. Hadapi konflik dengan tenang.",
+        "Ketekunan akan mengalahkan rintangan. Percaya pada kapasitas dirimu.",
+        "Kamu punya daya tahan untuk melewati masa sulit. Tetap lembut pada diri sendiri.",
+        "Putuskan dari ketenangan, bukan dari emosi sesaat."
+      ]
+    },
+    "The Hermit": {
+      "inti": "introspeksi, kesendirian, dan pencarian makna",
+      "topik": [
+        "Waktu menyendiri bisa membantu memahami apa yang kamu butuhkan dalam relasi.",
+        "Saatnya memperdalam kemampuan dan menentukan arah dengan tenang.",
+        "Istirahat dan refleksi dibutuhkan. Jangan menarik diri terlalu jauh.",
+        "Luangkan waktu menimbang sendiri. Jangan terburu-buru karena tekanan luar."
+      ]
+    },
+    "Wheel of Fortune": {
+      "inti": "perubahan siklus dan peluang tak terduga",
+      "topik": [
+        "Dinamika hubungan berubah. Fleksibel menghadapi pasang surutnya.",
+        "Peluang bisa datang dari arah tak terduga. Bersiaplah dan tetap adaptif.",
+        "Kondisi hidup bergerak naik turun. Tidak ada fase yang permanen.",
+        "Hasil tidak sepenuhnya di tanganmu. Lakukan yang terbaik dan siapkan rencana cadangan."
+      ]
+    },
+    "Justice": {
+      "inti": "keadilan, tanggung jawab, dan keseimbangan",
+      "topik": [
+        "Hubungan sehat butuh kejujuran dan sikap adil dari kedua pihak.",
+        "Usaha yang jujur dan terukur akan dihargai. Perhatikan detail dan aturan.",
+        "Keseimbangan antara kerja, istirahat, dan relasi perlu dijaga.",
+        "Timbang fakta secara objektif. Siap menanggung konsekuensi keputusanmu."
+      ]
+    },
+    "The Hanged Man": {
+      "inti": "jeda, sudut pandang baru, dan melepaskan",
+      "topik": [
+        "Berhenti memaksakan dan lihat situasi dari sudut pandang orang lain.",
+        "Kemajuan terasa lambat. Gunakan jeda ini untuk meninjau ulang strategi.",
+        "Tubuh dan pikiranmu mungkin meminta jeda. Beri waktu untuk pulih.",
+        "Tunda dulu dan lihat dari sisi lain. Keputusan terbaik mungkin belum waktunya."
+      ]
+    },
+    "Death": {
+      "inti": "akhir satu fase dan transformasi",
+      "topik": [
+        "Satu pola hubungan mungkin berakhir agar yang baru bisa tumbuh.",
+        "Cara lama perlu ditutup untuk membuka kesempatan baru. Terima perubahannya.",
+        "Kebiasaan lama yang tidak sehat sebaiknya ditinggalkan demi pemulihan.",
+        "Berani melepas pilihan lama yang sudah tidak sesuai, lalu mulai arah baru."
+      ]
+    },
+    "Temperance": {
+      "inti": "keseimbangan, kesabaran, dan harmoni",
+      "topik": [
+        "Hubungan membaik lewat komunikasi seimbang dan sabar.",
+        "Kemajuan stabil lahir dari proses bertahap. Jangan memaksakan ekstrem.",
+        "Pola hidup seimbang adalah kuncinya. Jaga ritme kerja, makan, dan istirahat.",
+        "Ambil jalan tengah dan jangan tergesa. Kombinasikan pertimbangan yang berbeda."
+      ]
+    },
+    "The Devil": {
+      "inti": "keterikatan, godaan, dan pola yang membatasi",
+      "topik": [
+        "Waspadai ketergantungan atau pola relasi yang membatasimu.",
+        "Cek apakah kamu terjebak ambisi, rasa takut, atau kebiasaan yang menahanmu.",
+        "Kebiasaan yang merugikan perlu disadari. Kamu punya kuasa untuk mengubahnya.",
+        "Periksa apakah pilihanmu didorong rasa takut atau godaan, bukan kebutuhan sebenarnya."
+      ]
+    },
+    "The Tower": {
+      "inti": "perubahan mendadak dan kebenaran yang terungkap",
+      "topik": [
+        "Ada pola relasi yang mungkin goyah. Menyakitkan, tapi membuka ruang yang lebih jujur.",
+        "Rencana lama bisa terguncang. Anggap ini kesempatan membangun ulang lebih kuat.",
+        "Guncangan bisa memengaruhi keseimbangan. Utamakan istirahat dan dukungan orang terdekat.",
+        "Tinjau ulang keputusan yang dibangun di atas asumsi rapuh."
+      ]
+    },
+    "The Star": {
+      "inti": "harapan, pemulihan, dan keyakinan pada proses",
+      "topik": [
+        "Ada kehangatan dan pemulihan dalam relasi. Bersikap tulus menarik hubungan sehat.",
+        "Potensimu mulai terlihat. Konsistensi kecil membawa hasil jangka panjang.",
+        "Kondisimu menuju pemulihan. Rawat diri perlahan dan jangan terburu-buru.",
+        "Arahmu tampak selaras dengan harapan. Tetap evaluasi seiring waktu."
+      ]
+    },
+    "The Moon": {
+      "inti": "ketidakpastian, perasaan samar, dan intuisi",
+      "topik": [
+        "Ada kebingungan atau hal yang belum jelas. Jangan berasumsi, cari kejelasan.",
+        "Jalurmu belum terlihat jelas. Kumpulkan informasi sebelum melangkah jauh.",
+        "Kecemasan atau pikiran berlebih mungkin mengganggu. Jaga tidur dan ketenangan.",
+        "Belum semua hal terlihat. Tunda keputusan besar sampai gambarannya lebih jelas."
+      ]
+    },
+    "The Sun": {
+      "inti": "kegembiraan, kejelasan, dan keberhasilan",
+      "topik": [
+        "Hubungan sosial dan cinta terasa hangat dan terbuka. Nikmati dan bagikan kebahagiaan.",
+        "Usahamu mulai terlihat hasilnya. Potensimu bersinar, tetap rendah hati.",
+        "Energi dan suasana hati cenderung positif. Pertahankan kebiasaan baikmu.",
+        "Pilihanmu tampak jelas dan menjanjikan. Lanjutkan dengan percaya diri yang wajar."
+      ]
+    },
+    "Judgement": {
+      "inti": "evaluasi diri, panggilan, dan pembaruan",
+      "topik": [
+        "Saatnya merenungkan masa lalu relasi dan memaafkan atau memulai ulang.",
+        "Kamu diajak menilai perjalananmu dan menjawab panggilan yang selaras dengan dirimu.",
+        "Evaluasi gaya hidupmu secara jujur, lalu bangkit dengan kebiasaan yang lebih sehat.",
+        "Tinjau pelajaran masa lalu, lalu putuskan dengan lebih sadar."
+      ]
+    },
+    "The World": {
+      "inti": "penyelesaian, pencapaian, dan keutuhan",
+      "topik": [
+        "Hubunganmu mencapai tahap utuh dan harmonis. Syukuri prosesnya.",
+        "Satu siklus usaha mendekati selesai. Siap melangkah ke tahap berikutnya.",
+        "Kondisi hidup terasa lengkap dan seimbang. Pertahankan dan syukuri.",
+        "Langkahmu mengarah pada penyelesaian yang baik. Pastikan semua sudah dipertimbangkan."
+      ]
+    }
+  }
+}

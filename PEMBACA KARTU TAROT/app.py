@@ -1,6 +1,6 @@
 import streamlit as st
 from data import PERTANYAAN, tambah_peminta, ubah_peminta, hapus_peminta
-from dek import kocok_dek, tarik_kartu, path_gambar, makna_statis
+from dek import kocok_kartu , tarik_kartu, path_gambar, makna_statis
 from riwayat import simpan_riwayat
 
 POSISI = ("Masa lalu", "Masa kini", "Masa depan")
@@ -17,7 +17,7 @@ st.markdown(
 st.title("🔮 Dukun Online")
 st.caption("Sistem Pembaca Kartu Tarot Berbasis Streamlit")
 
-for key, val in [("antrean", []), ("dek", kocok_dek()), ("riwayat", []), ("hasil", None)]:
+for key, val in [("antrean", []), ("dek", kocok_kartu ()), ("riwayat", []), ("hasil", None)]:
     if key not in st.session_state: st.session_state[key] = val
 
 tab1, tab2, tab3, tab4 = st.tabs(["Daftar Ramalan", "Antrean", "Ruang Ramal", "Riwayat Ramalan"])
@@ -71,7 +71,7 @@ with tab3:
     st.metric("Jumlah Kartu Tersisa", len(st.session_state.dek), " / 22")
 
     if st.button("Kocok Ulang Kartu"):
-        st.session_state.dek = kocok_dek()
+        st.session_state.dek = kocok_kartu ()
         st.session_state.pesan_ruang = ("success", "Dek kartu berhasil dikocok ulang.")
         st.rerun()
 
@@ -82,7 +82,7 @@ with tab3:
         else:
             peminta = antrean[0]
             if len(st.session_state.dek) < 3:
-                st.session_state.dek = kocok_dek()
+                st.session_state.dek = kocok_kartu ()
             kartu = tarik_kartu(st.session_state.dek, 3)
             arti = [makna_statis(k["nama"], peminta["pertanyaan"], w) for k, w in zip(kartu, POSISI)]
             hasil_baru = {
